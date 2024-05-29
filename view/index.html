@@ -37,14 +37,14 @@
       </label>
 
       <ul class="navlist">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Sobre mí</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Contacto</a></li>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#tech-stack">Sobre mí</a></li>
+        <li><a href="#projects">Portfolio</a></li>
+        <li><a href="#contact">Contacto</a></li>
       </ul>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="hero-text">
         <h5>Software Developer</h5>
         <h4></h4>
@@ -65,8 +65,12 @@
     </section>
 
     <div class="icons">
-      <a href="https://www.linkedin.com/in/mat%C3%ADas-liendo/" target="_blank"><i class="ri-linkedin-box-fill"></i></a>
-      <a href="https://github.com/matiliendogit" target="_blank"><i class="ri-github-fill"></i></a>
+      <a href="https://www.linkedin.com/in/mat%C3%ADas-liendo/" target="_blank"
+        ><i class="ri-linkedin-box-fill"></i
+      ></a>
+      <a href="https://github.com/matiliendogit" target="_blank"
+        ><i class="ri-github-fill"></i
+      ></a>
     </div>
 
     <div class="scroll-down">
@@ -183,11 +187,7 @@
             <p>Trello</p>
           </div>
           <div class="tech-icon">
-            <img
-              src="assets/icons/scrum-original.svg"
-              alt="Scrum"
-              id="scrum"
-            />
+            <img src="assets/icons/scrum-original.svg" alt="Scrum" id="scrum" />
             <p>Scrum</p>
           </div>
           <div class="tech-icon">
@@ -198,25 +198,107 @@
       </div>
     </section>
 
-    <section id="contact" class="">
-        <h2>Contacto</h2>
-        <form class="contact-form" action="/send-message" method="post">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
+    <section id="contact" class="form">
+      <h2>Contacto</h2>
+      <form
+        class="contact-form"
+        action="/send-message"
+        method="post"
+        id="contactForm"
+      >
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required />
 
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" required />
 
-            <label for="location">Ubicación:</label>
-            <input type="text" id="location" name="location">
+        <label for="location">Ubicación:</label>
+        <input type="text" id="location" name="location" />
 
-            <label for="message">Mensaje:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+        <label for="message">Mensaje:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
 
-            <button type="submit">Enviar</button>
-        </form>
+        <button type="submit">Enviar</button>
+      </form>
+
+      <!-- Modal -->
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p id="modalMessage"></p>
+        </div>
+      </div>
+
     </section>
 
-    <script src="scripts.js"></script>
+    <script>    
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const form = event.target;
+          const formData = new FormData(form);
+          const formDataObject = Object.fromEntries(formData.entries());
+
+          try {
+            const response = await fetch("/send-message", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formDataObject),
+            });
+
+            if (response.ok) {
+              showModal(
+                "Mensaje enviado con éxito, pronto me pondré en contacto con usted vía e-mail. /n Muchas gracias! "
+              );
+            } else {
+              showModal(
+                "Error al enviar el mensaje. Por favor intente luego o contácteme via e-mail."
+              );
+            }
+          } catch (error) {
+            showModal(
+              "Error al enviar el mensaje. Por favor intente luego o contácteme via e-mail."
+            );
+          }
+
+          /*setTimeout(() => {
+            window.location.href = '/#';
+          }, 8000);*/
+        });
+
+      function showModal(message) {
+        const modal = document.getElementById("myModal");
+        const modalContent = document.querySelector(".modal-content");
+        const modalMessage = document.getElementById("modalMessage");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        modalMessage.textContent = message;
+        modal.classList.add("show");
+        modalContent.classList.add("show");
+
+        closeBtn.onclick = function () {
+          hideModal(modal, modalContent);
+        };
+
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            hideModal(modal, modalContent);
+          }
+        };
+      }
+
+      function hideModal(modal, modalContent) {
+        modal.classList.remove("show");
+        modalContent.classList.remove("show");
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 500);
+      }
+    </script>
+
   </body>
 </html>
