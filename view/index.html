@@ -39,7 +39,7 @@
       <ul class="navlist">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About me</a></li>
-        <li><a href="#projects">Proyects</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </header>
@@ -60,7 +60,7 @@
         </p>
         <a href="CV Liendo Matías Dev.pdf" class="cta" target="_blank">CV</a>
         <a href="#" class="proyectos"
-          ><i class="ri-play-fill"></i>Ver proyectos</a
+          ><i class="ri-play-fill"></i>My projects</a
         >
       </div>
 
@@ -254,13 +254,13 @@
     <script>
       const text = "Hi! I'm Mati Liendo, a software developer in constant growth and training. I can work on both front-end and back-end development 💻. I specialize in JavaScript, with knowledge in Node.js, React, MySQL, among others. I have completed several individual projects as part of my studies and one group project. I graduated from the Full Stack course at Digital House and am currently pursuing the Certified Tech Developer program at the same institution. I have experience working in teams using agile methodologies like SCRUM, and tools such as Trello and GitHub. Additionally, I have experience in OOP using C#, .NET Framework, and Microsoft SQL Server. 🧪It is worth mentioning that I possess soft skills acquired through my studies and years of working as a licensed biochemist, such as logical analysis, excellent interpersonal relationships, and problem-solving abilities.";
       let index = 0;
-      const speed = 10;
+      const speed = 20;
 
       function typeWriter() {
-          if (index < text.length) {         
-              document.getElementById("animated-text").innerHTML += text.charAt(index);
-              index++;
-              setTimeout(typeWriter, speed);
+          if (index < text.length) {
+            document.getElementById("animated-text").innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeWriter, speed);           
           }
       }
       typeWriter();
